@@ -1,0 +1,2 @@
+eoxserver-magnetism
+===================
