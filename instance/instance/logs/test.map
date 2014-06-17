@@ -1,0 +1,883 @@
+MAP
+  CONFIG "MS_ERRORFILE" "stderr"
+  DEBUG 5
+  EXTENT -180 -90 180 90
+  IMAGECOLOR 0 0 0
+  IMAGETYPE "png"
+  NAME "QGIS-MAP"
+  SIZE -1 -1
+  STATUS ON
+  UNITS DD
+
+  OUTPUTFORMAT
+    NAME "png"
+    MIMETYPE "image/png"
+    DRIVER "AGG/PNG"
+    EXTENSION "png"
+    IMAGEMODE RGBA
+    TRANSPARENT TRUE
+  END # OUTPUTFORMAT
+
+  PROJECTION
+    "init=epsg:4326"
+  END # PROJECTION
+  LEGEND
+    KEYSIZE 20 10
+    KEYSPACING 5 5
+    LABEL
+      SIZE MEDIUM
+      OFFSET 0 0
+      SHADOWSIZE 1 1
+      TYPE BITMAP
+    END # LABEL
+    STATUS OFF
+  END # LEGEND
+
+  QUERYMAP
+    SIZE -1 -1
+    STATUS OFF
+    STYLE HILITE
+  END # QUERYMAP
+
+  SCALEBAR
+    INTERVALS 4
+    LABEL
+      SIZE MEDIUM
+      OFFSET 0 0
+      SHADOWSIZE 1 1
+      TYPE BITMAP
+    END # LABEL
+    SIZE 200 3
+    STATUS OFF
+    UNITS MILES
+  END # SCALEBAR
+
+  WEB
+    FOOTER ""
+    HEADER ""
+    TEMPPATH ""
+    METADATA
+      "wms_srs" "EPSG:4326 EPSG:3857 EPSG:900913 EPSG:3035"
+      "ows_onlineresource"  "http://data.eox.at/goce_ows"
+      "ows_enable_request"  "*"
+      "ows_srs" "EPSG:4326 EPSG:3857 EPSG:900913 EPSG:3035"
+      "ows_title" "QGIS-MAP"
+    END # METADATA
+  END # WEB
+
+  LAYER
+    DATA "/tmp/684215e9abdd4d319d8cf9b11e609883.shp"
+    DEBUG 5
+    METADATA
+      "ows_title" "Declination"
+      "wmm_product" "Decl"
+    END # METADATA
+    NAME "Declination"
+    PROJECTION
+      "init=epsg:4326"
+    END # PROJECTION
+    STATUS ON
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      NAME "-180.0000 - -140.0000"
+      EXPRESSION ( ([elev]  > -180) And ([elev]  <= -140))
+      STYLE
+        COLOR 5 113 176
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-140.0000 - -100.0000"
+      EXPRESSION ( ([elev]  > -140) And ([elev]  <= -100))
+      STYLE
+        COLOR 75 155 199
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-100.0000 - -60.0000"
+      EXPRESSION ( ([elev]  > -100) And ([elev]  <= -60))
+      STYLE
+        COLOR 146 197 222
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-60.0000 - -20.0000"
+      EXPRESSION ( ([elev]  > -60) And ([elev]  <= -20))
+      STYLE
+        COLOR 196 222 234
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-20.0000 - 20.0000"
+      EXPRESSION ( ([elev]  > -20) And ([elev]  <= 20))
+      STYLE
+        COLOR 247 247 247
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "20.0000 - 60.0000"
+      EXPRESSION ( ([elev]  > 20) And ([elev]  <= 60))
+      STYLE
+        COLOR 245 356 188
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "60.0000 - 100.0000"
+      EXPRESSION ( ([elev]  > 60) And ([elev]  <= 100))
+      STYLE
+        COLOR 244 165 130
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "100.0000 - 140.0000"
+      EXPRESSION ( ([elev]  > 100) And ([elev]  <= 140))
+      STYLE
+        COLOR 223 82 81
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "140.0000 - 180.0000"
+      EXPRESSION ( ([elev]  > 140) And ([elev]  <= 180))
+      STYLE
+        COLOR 202 0 32
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+  END # LAYER
+
+  LAYER
+    METADATA
+      "ows_title" "Inclination"
+      "wmm_product" "Decl"
+    END # METADATA
+    NAME "Inclination"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "no_defs"
+    END # PROJECTION
+    STATUS ON
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      NAME "-180.0000 - -140.0000"
+      EXPRESSION ( ([elev]  > -180) And ([elev]  <= -140))
+      STYLE
+        COLOR 5 113 176
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-140.0000 - -100.0000"
+      EXPRESSION ( ([elev]  > -140) And ([elev]  <= -100))
+      STYLE
+        COLOR 75 155 199
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-100.0000 - -60.0000"
+      EXPRESSION ( ([elev]  > -100) And ([elev]  <= -60))
+      STYLE
+        COLOR 146 197 222
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-60.0000 - -20.0000"
+      EXPRESSION ( ([elev]  > -60) And ([elev]  <= -20))
+      STYLE
+        COLOR 196 222 234
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-20.0000 - 20.0000"
+      EXPRESSION ( ([elev]  > -20) And ([elev]  <= 20))
+      STYLE
+        COLOR 247 247 247
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "20.0000 - 60.0000"
+      EXPRESSION ( ([elev]  > 20) And ([elev]  <= 60))
+      STYLE
+        COLOR 245 356 188
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "60.0000 - 100.0000"
+      EXPRESSION ( ([elev]  > 60) And ([elev]  <= 100))
+      STYLE
+        COLOR 244 165 130
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "100.0000 - 140.0000"
+      EXPRESSION ( ([elev]  > 100) And ([elev]  <= 140))
+      STYLE
+        COLOR 223 82 81
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "140.0000 - 180.0000"
+      EXPRESSION ( ([elev]  > 140) And ([elev]  <= 180))
+      STYLE
+        COLOR 202 0 32
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+  END # LAYER
+
+  LAYER
+    METADATA
+      "ows_title" "F"
+      "wmm_product" "F"
+    END # METADATA
+    NAME "F"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "no_defs"
+    END # PROJECTION
+    STATUS ON
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      NAME "20000 - 26250"
+      EXPRESSION ( ([elev]  > 20000) And ([elev]  <= 26250))
+      STYLE
+        COLOR 255 245 240
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "26250 - 32500"
+      EXPRESSION ( ([elev]  > 26250) And ([elev]  <= 32500))
+      STYLE
+        COLOR 253 220 205
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "32500 - 38750"
+      EXPRESSION ( ([elev]  > 32500) And ([elev]  <= 38750))
+      STYLE
+        COLOR 252 178 151
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "38750 - 45000"
+      EXPRESSION ( ([elev]  > 38750) And ([elev]  <= 45000))
+      STYLE
+        COLOR 251 134 102
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "45000 - 51250"
+      EXPRESSION ( ([elev]  > 45000) And ([elev]  <= 51250))
+      STYLE
+        COLOR 246 87 62
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "51250 - 57500"
+      EXPRESSION ( ([elev]  > 51250) And ([elev]  <= 57500))
+      STYLE
+        COLOR 221 41 36
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "57500 - 63750"
+      EXPRESSION ( ([elev]  > 57500) And ([elev]  <= 63750))
+      STYLE
+        COLOR 178 18 23
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "63750 - 70000"
+      EXPRESSION ( ([elev]  > 63750) And ([elev]  <= 70000))
+      STYLE
+        COLOR 103 0 13
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+  END # LAYER
+
+  LAYER
+    METADATA
+      "ows_title" "H"
+      "wmm_product" "H"
+    END # METADATA
+    NAME "H"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "no_defs"
+    END # PROJECTION
+    STATUS ON
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      NAME "0 - 5625"
+      EXPRESSION ( ([elev]  > 0) And ([elev]  <= 5625))
+      STYLE
+        COLOR 255 245 240
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "5625 - 11250"
+      EXPRESSION ( ([elev]  > 5625) And ([elev]  <= 11250))
+      STYLE
+        COLOR 253 220 205
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "11250 - 16875"
+      EXPRESSION ( ([elev]  > 11250) And ([elev]  <= 16875))
+      STYLE
+        COLOR 252 178 151
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "16875 - 22500"
+      EXPRESSION ( ([elev]  > 16875) And ([elev]  <= 22500))
+      STYLE
+        COLOR 251 134 102
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "22500 - 28125"
+      EXPRESSION ( ([elev]  > 22500) And ([elev]  <= 28125))
+      STYLE
+        COLOR 246 87 62
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "28125 - 33750"
+      EXPRESSION ( ([elev]  > 28125) And ([elev]  <= 33750))
+      STYLE
+        COLOR 221 41 36
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "33750 - 39375"
+      EXPRESSION ( ([elev]  > 33750) And ([elev]  <= 39375))
+      STYLE
+        COLOR 178 18 23
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "39375 - 45000"
+      EXPRESSION ( ([elev]  > 39375) And ([elev]  <= 45000))
+      STYLE
+        COLOR 103 0 13
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+  END # LAYER
+
+  LAYER
+    METADATA
+      "ows_title" "X"
+      "wmm_product" "X"
+    END # METADATA
+    NAME "X"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "no_defs"
+    END # PROJECTION
+    STATUS ON
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      NAME "-45000 - -33750"
+      EXPRESSION ( ([elev]  > -45000) And ([elev]  <= -33750))
+      STYLE
+        COLOR 5 113 176
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-33750 - -22500"
+      EXPRESSION ( ([elev]  > -33750) And ([elev]  <= -22500))
+      STYLE
+        COLOR 85 161 202
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-22500 - -11250"
+      EXPRESSION ( ([elev]  > -22500) And ([elev]  <= -11250))
+      STYLE
+        COLOR 160 204 225
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-11250 - 0"
+      EXPRESSION ( ([elev]  > -11250) And ([elev]  <= 0))
+      STYLE
+        COLOR 218 232 239
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "0 - 11250"
+      EXPRESSION ( ([elev]  > 0) And ([elev]  <= 11250))
+      STYLE
+        COLOR 246 223 213
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "11250 - 22500"
+      EXPRESSION ( ([elev]  > 11250) And ([elev]  <= 22500))
+      STYLE
+        COLOR 244 176 146
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "22500 - 33750"
+      EXPRESSION ( ([elev]  > 22500) And ([elev]  <= 33750))
+      STYLE
+        COLOR 226 94 88
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "33750 - 45000"
+      EXPRESSION ( ([elev]  > 33750) And ([elev]  <= 45000))
+      STYLE
+        COLOR 202 0 32
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+  END # LAYER
+
+  LAYER
+    METADATA
+      "ows_title" "Y"
+      "wmm_product" "Y"
+    END # METADATA
+    NAME "Y"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "no_defs"
+    END # PROJECTION
+    STATUS ON
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      NAME "-20000 - -15000"
+      EXPRESSION ( ([elev]  > -20000) And ([elev]  <= -15000))
+      STYLE
+        COLOR 5 113 176
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-15000 - -10000"
+      EXPRESSION ( ([elev]  > -15000) And ([elev]  <= -10000))
+      STYLE
+        COLOR 85 161 202
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-10000 - -5000"
+      EXPRESSION ( ([elev]  > -10000) And ([elev]  <= -5000))
+      STYLE
+        COLOR 160 204 225
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-5000 - 0"
+      EXPRESSION ( ([elev]  > -5000) And ([elev]  <= 0))
+      STYLE
+        COLOR 218 232 239
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "0 - 5000"
+      EXPRESSION ( ([elev]  > 0) And ([elev]  <= 5000))
+      STYLE
+        COLOR 246 223 213
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "5000 - 10000"
+      EXPRESSION ( ([elev]  > 5000) And ([elev]  <= 10000))
+      STYLE
+        COLOR 244 176 146
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "10000 - 15000"
+      EXPRESSION ( ([elev]  > 10000) And ([elev]  <= 15000))
+      STYLE
+        COLOR 226 94 88
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "15000 - 20000"
+      EXPRESSION ( ([elev]  > 15000) And ([elev]  <= 20000))
+      STYLE
+        COLOR 202 0 32
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+  END # LAYER
+
+  LAYER
+    METADATA
+      "ows_title" "Z"
+      "wmm_product" "Z"
+    END # METADATA
+    NAME "Z"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "no_defs"
+    END # PROJECTION
+    STATUS ON
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      NAME "-70000 - -52500"
+      EXPRESSION ( ([elev]  > -70000) And ([elev]  <= -52500))
+      STYLE
+        COLOR 5 113 176
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-52500 - -35000"
+      EXPRESSION ( ([elev]  > -52500) And ([elev]  <= -35000))
+      STYLE
+        COLOR 85 161 202
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-35000 - -17500"
+      EXPRESSION ( ([elev]  > -35000) And ([elev]  <= -17500))
+      STYLE
+        COLOR 160 204 225
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "-17500 - 0"
+      EXPRESSION ( ([elev]  > -17500) And ([elev]  <= 0))
+      STYLE
+        COLOR 218 232 239
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "0 - 17500"
+      EXPRESSION ( ([elev]  > 0) And ([elev]  <= 17500))
+      STYLE
+        COLOR 246 223 213
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "17500 - 35000"
+      EXPRESSION ( ([elev]  > 17500) And ([elev]  <= 35000))
+      STYLE
+        COLOR 244 176 146
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "35000 - 52500"
+      EXPRESSION ( ([elev]  > 35000) And ([elev]  <= 52500))
+      STYLE
+        COLOR 226 94 88
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+    CLASS
+      NAME "52500 - 70000"
+      EXPRESSION ( ([elev]  > 52500) And ([elev]  <= 70000))
+      STYLE
+        COLOR 202 0 32
+      END # STYLE
+      STYLE
+        COLOR 57 57 57
+        OFFSET 0 -99
+        WIDTH 0.3
+      END # STYLE
+    END # CLASS
+  END # LAYER
+
+END # MAP
