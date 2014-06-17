@@ -34,7 +34,7 @@ from setuptools import setup, find_packages
 setup(
     name='EOxServer-GeoMagnetism',
     version="0.0.1",
-    packages=["eoxsmagnetism"],
+    packages=find_packages(),
     install_requires=[
         'EOxServer',
     ],
