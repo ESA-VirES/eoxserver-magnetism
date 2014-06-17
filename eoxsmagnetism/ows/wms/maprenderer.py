@@ -43,7 +43,7 @@ from eoxserver.core import Component, implements
 from eoxserver.core.config import get_eoxserver_config
 from eoxserver.contrib import mapserver as ms
 from eoxserver.contrib import ogr, gdal, osr
-from eoxserver.resources.coverages.crss import CRSsConfigReader
+from eoxserver.resources.coverages import crss
 from eoxserver.services.result import result_set_from_raw_data, get_content_type
 from eoxserver.services.exceptions import RenderException
 from eoxserver.services.ows.wms.exceptions import InvalidCRS, InvalidFormat
@@ -81,7 +81,7 @@ class MapServerWMSBaseComponent(Component):
         map_.imagecolor.setRGB(0, 0, 0)
         
         # set supported CRSs
-        decoder = CRSsConfigReader(get_eoxserver_config())
+        decoder = crss.CRSsConfigReader(get_eoxserver_config())
         crss_string = " ".join(
             map(lambda crs: "EPSG:%d" % crs, decoder.supported_crss_wms)
         )
@@ -145,7 +145,6 @@ class MapServerWMSBaseComponent(Component):
         for ds in datasets:
             driver = ds.GetDriver()
             for filename in ds.GetFileList():
-                #driver.Delete(filename)
                 os.remove(filename)
 
 
