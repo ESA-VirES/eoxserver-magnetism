@@ -1,0 +1,104 @@
+#-------------------------------------------------------------------------------
+# $Id$
+#
+# Project: EOxServer <http://eoxserver.org>
+# Authors: Fabian Schindler <fabian.schindler@eox.at>
+#
+#-------------------------------------------------------------------------------
+# Copyright (C) 2014 EOX IT Services GmbH
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+# copies of the Software, and to permit persons to whom the Software is 
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies of this Software or works derived from this Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#-------------------------------------------------------------------------------
+
+from eoxserver.core import Component, implements, UniqueExtensionPoint
+from eoxserver.core.decoders import kvp, typelist, InvalidParameterException
+from eoxserver.resources.coverages import crss
+from eoxserver.services.subset import Subsets, Trim
+from eoxserver.services.ows.interfaces import (
+    ServiceHandlerInterface, GetServiceHandlerInterface
+)
+from eoxserver.services.ows.wms.util import (
+    lookup_layers, parse_bbox, parse_time
+)
+from eoxserver.services.ows.wms.interfaces import WMSMapRendererInterface
+from eoxserver.services.result import to_http_response
+from eoxserver.services.ows.wms.exceptions import InvalidCRS
+
+
+class WMS13GetMapHandler(Component):
+    implements(ServiceHandlerInterface)
+    implements(GetServiceHandlerInterface)
+
+    renderer = UniqueExtensionPoint(WMSMapRendererInterface)
+
+    service = ("WMS", None)
+    versions = ("1.3.0", "1.3")
+    request = "GetMap"
+
+    def handle(self, request):
+        decoder = WMS13GetMapDecoder(request.GET)
+
+        bbox = decoder.bbox
+        time = decoder.time
+        crs = decoder.crs
+        layers = decoder.layers
+        elevation = decoder.elevation
+
+        if not layers:
+            raise InvalidParameterException("No layers specified", "layers")
+
+        srid = crss.parseEPSGCode(
+            crs, (crss.fromShortCode, crss.fromURN, crss.fromURL)
+        )
+        if srid is None:
+            raise InvalidCRS(crs, "crs")
+
+        if crss.hasSwappedAxes(srid):
+            miny, minx, maxy, maxx = bbox
+        else:
+            minx, miny, maxx, maxy = bbox
+
+        subsets = Subsets((
+            Trim("x", minx, maxx, crs),
+            Trim("y", miny, maxy, crs),
+        ))
+        if time:
+            subsets.append(time)
+        
+        renderer = self.renderer
+
+        result, _ = renderer.render(
+            layers, (minx, miny, maxx, maxy), crs, 
+            (decoder.width, decoder.height), decoder.format, time, elevation, decoder.styles
+        )
+
+        return to_http_response(result)
+
+
+class WMS13GetMapDecoder(kvp.Decoder):
+    layers    = kvp.Parameter(type=typelist(str, ","), num=1)
+    styles    = kvp.Parameter(type=typelist(str, ","), num=1)
+    bbox      = kvp.Parameter(type=parse_bbox, num=1)
+    crs       = kvp.Parameter(num=1)
+    width     = kvp.Parameter(type=int, num=1)
+    height    = kvp.Parameter(type=int, num=1)
+    format    = kvp.Parameter(num=1)
+    time      = kvp.Parameter(type=parse_time, num="?")
+    elevation = kvp.Parameter(type=float, num="?")
+
