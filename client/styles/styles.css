@@ -1,5 +1,6 @@
 html, body {
   font-family: 'Droid Sans', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+  background-color:#050505;
 }
 
 body {
@@ -30,7 +31,7 @@ h1 {
   -moz-box-shadow: 0 0 1em 0 rgba(25,25,25,1);
   -webkit-box-shadow: 0 0 1em 0 rgba(25,25,25,1);
   font-family: 'Droid Sans', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
-  background-color: white;
+  background-color: #050505;
 }
 
 /*
@@ -94,23 +95,42 @@ h1 {
   line-height: 1.5em;
 }
 
-input {
+.panel {
   z-index: 2000;
 }
 
-input.slider {
+.div-slider-bottom {
   position: absolute;
   bottom: 50px;
   left: 10%;
   width: 80%;
 }
 
-input.slider-vertical {
-  -webkit-appearance: slider-vertical;
+.div-slider-right {
   position: absolute;
   right: 20px;
   top: 20%;
   height: 60%;
+}
+
+.div-time-show {
+  position: absolute;
+  right: 20px;
+  bottom: 50px;
+}
+
+#time-show {
+  width: 100px;
+}
+
+input[type="range"] {
+  width:100%;
+  height: 80%;
+}
+
+#elevationslider {
+  width:80px;
+  -webkit-appearance: slider-vertical;
 }
 
 
