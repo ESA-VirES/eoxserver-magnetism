@@ -2,12 +2,12 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="description" content="EOX :: WMM ISO-lines Demo">
+  <meta name="description" content="EOX :: WMM Viewer">
 
   <!-- Allow address bar to hide on mobiles -->
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-  <title>EOX :: WMM ISO-lines Demo</title>
+  <title>EOX :: WMM Viewer</title>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
   <!-- Styles -->
@@ -26,7 +26,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" style="font-size: 160%"><i class="fa fa-globe"></i> EOX::WMM ISO-lines Demo</a>
+        <a class="navbar-brand" style="font-size: 160%"><i class="fa fa-globe"></i> EOX :: WMM Viewer</a>
     </div>
 </nav>
 
@@ -38,7 +38,6 @@
               <button type="button" onclick="map.getView().setZoom(map.getView().getZoom() + 1);" class="btn btn-default"><i class="fa fa-fw fa-plus"></i></button>
               <button type="button" onclick="map.getView().setZoom(map.getView().getZoom() - 1);" class="btn btn-default"><i class="fa fa-fw fa-minus"></i></button>
           </div>
-          <button type="button" id="expand" class="btn btn-default"><i class="fa fa-fw fa-expand"></i></button>
       </div>
       <div id="tools" class="btn-group btn-group-sm">
           <div class="btn-group btn-group-sm">
@@ -57,16 +56,24 @@
               <label class="btn btn-default"><input type="checkbox" id="overlay"><i class="fa fa-road"></i> Overlay</label>
           </div>
       </div>
+
+      <div class="input-group div-slider-bottom">
+        <span id="time-show" class="input-group-addon">Date: 2010-1-1</span>
+        <input id="timeslider" class="form-control" type="range" min="0" max="60" step="1" value="0"/>
+      </div>
+<!--
       <div class="panel panel-default div-slider-bottom">
-        <input id="timeslider" type="range" min="0" max="60" step="1"i value="48"/>
+        <input id="timeslider" type="range" min="0" max="60" step="1" value="0"/>
       </div>
       <div class="panel panel-default div-time-show">
-        <div id="time-show" class="panel-heading">2014-1-1</div>
+        <div class="panel-heading">Date:</div>
+        <div id="time-show" class="panel-body">2010-1-1</div>
       </div>
+-->
       <div class="panel panel-default div-slider-right">
-        <div id="elevation-show" class="panel-heading">Elevation: 0</div>
+        <div id="elevation-show" class="panel-heading">Elevation: <br/>0km</div>
         <div class="panel-body">
-          <input id="elevationslider" type="range" min="-1" max="850" value="0"/>
+          <input id="elevationslider" type="range" min="0" max="10" step="1" value="1" orient="vertical"/>
         </div>
       </div>
     </div>
@@ -108,7 +115,7 @@ var urls = [
     'http://f.tiles.maps.eox.at/wmts/',
   ];
 
-layer = new ol.layer.Tile({
+/*layer = new ol.layer.Tile({
   source: new ol.source.TileWMS({
     url: '/cache',
     params: {
@@ -119,6 +126,24 @@ layer = new ol.layer.Tile({
       'TIME': "2014-1-1"
     },
     extent: [-180, -90, 180, 90],
+  })
+});
+*/
+
+layer = new ol.layer.Tile({
+  source: new ol.source.WMTS({
+    url: "/cache/wmts",
+    layer: "Declination",
+    matrixSet: "WGS84",
+    format: 'image/jpeg',
+    projection: ol.proj.get('EPSG:4326'),
+    tileGrid: getWMTSTileGridForProjection(ol.proj.get('EPSG:4326'), 15, false),
+    extent: [-180, -90, 180, 90],
+    style: 'default',
+    dimensions: {
+      'ELEVATION': "0",
+      'TIME': "2010-1-1"
+    }
   })
 });
 
@@ -144,7 +169,7 @@ var layers = [
       url: urls,
       layer: "terrain",
       matrixSet: "WGS84",
-      format: 'image/jpeg',
+      format: 'image/png',
       projection: ol.proj.get('EPSG:4326'),
       tileGrid: getWMTSTileGridForProjection(ol.proj.get('EPSG:4326'), 15, false),
       extent: [-180, -90, 180, 90],
@@ -162,13 +187,36 @@ map = new ol.Map({
   view: new ol.View2D({
     projection: 'EPSG:4326',
     center: [0, 0],
-    zoom: 2
+    zoom: 3
   })
 });
 
 $('.baseLayer').on('click.baselayer', function(e) {
-  layer.getSource().updateParams({'LAYERS': $(e.target).data('layer')});
-  $('#layerSwitcher').html("<i class='fa fa-globe'></i> " + $(e.target).data('layer') + "  <i class='fa fa-caret-down'></i>" );
+  var layerName = $(e.target).data('layer');
+  map.removeLayer(layer);
+  layer = new ol.layer.Tile({
+    source: new ol.source.WMTS({
+      url: "cache/wmts",
+      layer: layerName,
+      matrixSet: "WGS84",
+      format: 'image/png',
+      projection: ol.proj.get('EPSG:4326'),
+      tileGrid: getWMTSTileGridForProjection(ol.proj.get('EPSG:4326'), 15, false),
+      extent: [-180, -90, 180, 90],
+      style: 'default',
+      dimensions: {
+        'ELEVATION': $("#elevationslider").val(),
+        'TIME': getTime($("#timeslider").val())
+      }
+    })
+  });
+
+  map.getLayers().insertAt(1, layer);
+  $('#layerSwitcher').html("<i class='fa fa-globe'></i> " + layerName + "  <i class='fa fa-caret-down'></i>" );
+  $('#layerSwitcher + ul li').each(function(i) {
+    link = $($(this)[0].children[0]);
+    link[0].children[0].className = (link.data("layer") == layerName) ? "fa fa-check-square-o" : "fa fa-square-o"
+  });
 });
 
 $('#overlay').on('change.overlay', function(e) {
@@ -182,26 +230,29 @@ function getTime(raw) {
   return "" + y + "-" + m + "-1"
 }
 
+function getElevation(raw) {
+  var elevations = [
+    -1, 0, 100, 200, 300, 400, 500, 600, 700, 800, 850
+  ];
+  return elevations[parseInt(raw)];
+}
+
 $("#timeslider").on("input", function(event) {
-  $("#time-show").text(getTime($("#timeslider").val()));
+  $("#time-show").text("Date: " + getTime($("#timeslider").val()));
 });
 
 $("#timeslider").on("change", function(event) {
-  layer.getSource().updateParams({'TIME': getTime($("#timeslider").val())});
+  layer.getSource().updateDimensions({'TIME': getTime($("#timeslider").val())});
 });
 
 $("#elevationslider").on("input", function(event) {
-  $("#elevation-show").text("Elevation: " + $("#elevationslider").val());
+  $("#elevation-show").html("Elevation: <br/>" + getElevation($("#elevationslider").val()) + "km");
+  layer.getSource().updateDimensions({'ELEVATION': getElevation($("#elevationslider").val())});
 });
 
 $("#elevationslider").on("change", function(event) {
-  layer.getSource().updateParams({'ELEVATION': $("#elevationslider").val()});
+  //layer.getSource().updateDimensions({'ELEVATION': getElevation($("#elevationslider").val())});
 });
-
-
-
 </script>
-
-
-
+</body>
 </html>
