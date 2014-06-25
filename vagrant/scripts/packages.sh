@@ -16,7 +16,7 @@ yum install -y gcc make gcc-c++ kernel-devel-`uname -r` zlib-devel \
                sqlite-devel libpng-devel libjpeg-devel libcurl-devel cmake \
                geos-devel fcgi-devel gdal-eox-devel python-devel \
                gdal-eox-driver-envisat gdal-eox-driver-netcdf \
-               gdal-eox-driver-openjpeg2
+               gdal-eox-driver-openjpeg2 dejavu-fonts-common.noarch dejavu-sans-fonts.noarch 
 
 pip install Cython
 
