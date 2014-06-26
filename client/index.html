@@ -14,9 +14,10 @@
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
   <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css" rel="stylesheet">
   <link href="./styles/styles.css" rel="stylesheet" type="text/css" media="all" />
+  <!--link href="./styles/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" media="all" />-->
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif">
-
+  
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="75">
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -59,7 +60,9 @@
 
       <div class="input-group div-slider-bottom">
         <span id="time-show" class="input-group-addon">Date: 2010-1-1</span>
-        <input id="timeslider" class="form-control" type="range" min="0" max="60" step="1" value="0"/>
+        <div class="form-control">
+          <input id="timeslider"  type="range" min="0" max="60" step="1" value="0"/>
+        </div>
       </div>
 <!--
       <div class="panel panel-default div-slider-bottom">
@@ -80,6 +83,7 @@
 </div>
 <!-- Bootstrap -->
 <script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
+<!--<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js" type="text/javascript"></script>
 <script src='http://ol3js.org/en/master/build/ol.js'></script>
 <script>
@@ -223,6 +227,10 @@ $('#overlay').on('change.overlay', function(e) {
   overlay.set("visible", this.checked);
 });
 
+
+//$("#timeslider").slider({ min: 0, max: 60 });
+
+
 function getTime(raw) {
   var value = parseInt(raw);
   var y = 2010 + Math.floor(value / 12);
@@ -237,12 +245,17 @@ function getElevation(raw) {
   return elevations[parseInt(raw)];
 }
 
+//$("#timeslider").on("slide", function(event) {
 $("#timeslider").on("input", function(event) {
-  $("#time-show").text("Date: " + getTime($("#timeslider").val()));
+  //var value = $("#timeslider").slider("value");
+  var value = $("#timeslider").val();
+  console.log(value);
+  $("#time-show").text("Date: " + getTime(value));
+  layer.getSource().updateDimensions({'TIME': getTime(value)});
 });
 
-$("#timeslider").on("change", function(event) {
-  layer.getSource().updateDimensions({'TIME': getTime($("#timeslider").val())});
+$("#timeslider").on("slide", function(event) {
+  //layer.getSource().updateDimensions({'TIME': getTime($("#timeslider").val())});
 });
 
 $("#elevationslider").on("input", function(event) {
