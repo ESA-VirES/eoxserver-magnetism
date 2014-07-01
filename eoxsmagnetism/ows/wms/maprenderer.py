@@ -218,14 +218,6 @@ class MapServerWMSBaseComponent(Component):
         gdal.ContourGenerate(
             ds.GetRasterBand(1), contour_steps, 0, [], 0, 0, ogr_lyr, 0, 1
         )
-        """
-        for feature in ogr_lyr:
-            geom = feature.GetGeometryRef()
-            shape = ms.shapeObj.fromWKT(geom.ExportToWkt())
-            shape.initValues(1)
-            shape.setValue(0, str(feature.GetField("elev")))
-            layer.addFeature(shape)
-        """
 
         logger.debug("Finished generating contours for file %s" % ds.GetFileList()[0])
         return ogr_ds
