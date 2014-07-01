@@ -188,10 +188,11 @@ map = new ol.Map({
   controls: ol.control.defaults(),
   layers: layers,
   target: 'map',
-  view: new ol.View2D({
+  view: new ol.View({
     projection: 'EPSG:4326',
     center: [0, 0],
-    zoom: 3
+    zoom: 3,
+    maxZoom: 5
   })
 });
 
@@ -200,7 +201,7 @@ $('.baseLayer').on('click.baselayer', function(e) {
   map.removeLayer(layer);
   layer = new ol.layer.Tile({
     source: new ol.source.WMTS({
-      url: "cache/wmts",
+      url: "/cache/wmts",
       layer: layerName,
       matrixSet: "WGS84",
       format: 'image/png',
@@ -209,7 +210,7 @@ $('.baseLayer').on('click.baselayer', function(e) {
       extent: [-180, -90, 180, 90],
       style: 'default',
       dimensions: {
-        'ELEVATION': $("#elevationslider").val(),
+        'ELEVATION': getElevation($("#elevationslider").val()),
         'TIME': getTime($("#timeslider").val())
       }
     })
