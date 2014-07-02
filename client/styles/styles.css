@@ -3,10 +3,6 @@ html, body {
   background-color:#050505;
 }
 
-body {
-  margin-bottom: 3em;
-}
-
 /*
  * Typography
  */
@@ -21,11 +17,10 @@ h1 {
  * EOX Maps Demo
  */
 .jumbotron {
-  margin-top: 50px;
+  margin-bottom: 0px;
   padding: 0;
 }
 #map {
-  height: 100%;
   font-size: 12px;
   box-shadow: 0 0 1em 0 rgba(25,25,25,1);
   -moz-box-shadow: 0 0 1em 0 rgba(25,25,25,1);
@@ -40,7 +35,7 @@ h1 {
 #zoom {
   position: absolute;
   z-index: 1001;
-  top: 1em;
+  top: 7em;
   left: 1em;
 }
 #zoom .fa-fw {
@@ -62,7 +57,7 @@ h1 {
 #tools {
   position: absolute;
   z-index: 1001;
-  top: 1em;
+  top: 7em;
   right: 1em;
 }
 #tools .dropdown-menu {
@@ -72,16 +67,9 @@ h1 {
 }
 
 /*
- * OpenLayers Default Zoom Control
- */
-#map div.olControlZoom {
-  display: none;
-}
-
-/*
  * OpenLayers Attribution
  */
-#map div.olControlAttribution {
+#map div.ol-attribution {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -93,6 +81,10 @@ h1 {
   border-width: 1px 0 0 1px;
   font-size: .85em;
   line-height: 1.5em;
+}
+
+.ol-attribution a {
+  color: #999;
 }
 
 .panel {

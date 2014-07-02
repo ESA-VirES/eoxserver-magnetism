@@ -13,11 +13,10 @@
   <!-- Styles -->
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
   <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css" rel="stylesheet">
-  <link href="./styles/styles.css" rel="stylesheet" type="text/css" media="all" />
-  <!--link href="./styles/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" media="all" />-->
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif">
-  
+  <link rel="stylesheet" type="text/css" href="./styles/ol.css">  
+  <link href="./styles/styles.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="75">
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -28,6 +27,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" style="font-size: 160%"><i class="fa fa-globe"></i> EOX :: WMM Viewer</a>
+
     </div>
 </nav>
 
@@ -40,28 +40,29 @@
               <button type="button" onclick="map.getView().setZoom(map.getView().getZoom() - 1);" class="btn btn-default"><i class="fa fa-fw fa-minus"></i></button>
           </div>
       </div>
+
       <div id="tools" class="btn-group btn-group-sm">
           <div class="btn-group btn-group-sm">
-              <button type="button" id="layerSwitcher" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe"></i> Declination <i class="fa fa-caret-down"></i></button>
+              <button type="button" id="layerSwitcher" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe"></i> Declination D <i class="fa fa-caret-down"></i></button>
               <ul class="dropdown-menu">
-                  <li><a href="#" class="baseLayer" data-layer="Declination"><i class="fa fa-check-square-o" data-layer="Declination"></i> Declination</a></li>
-                  <li><a href="#" class="baseLayer" data-layer="Inclination"><i class="fa fa-square-o" data-layer="Inclination"></i> Inclination</a></li>
-                  <li><a href="#" class="baseLayer" data-layer="F"><i class="fa fa-square-o" data-layer="F"></i> F</a></li>
-                  <li><a href="#" class="baseLayer" data-layer="H"><i class="fa fa-square-o" data-layer="H"></i> H</a></li>
-                  <li><a href="#" class="baseLayer" data-layer="X"><i class="fa fa-square-o" data-layer="X"></i> X</a></li>
-                  <li><a href="#" class="baseLayer" data-layer="Y"><i class="fa fa-square-o" data-layer="Y"></i> Y</a></li>
-                  <li><a href="#" class="baseLayer" data-layer="Z"><i class="fa fa-square-o" data-layer="Z"></i> Z</a></li>
+                  <li><a href="#" class="baseLayer" data-layer="Declination" data-layer-desc="Declination D"><i class="fa fa-check-square-o"></i> Declination D</a></li>
+                  <li><a href="#" class="baseLayer" data-layer="Inclination" data-layer-desc="Inclination I"><i class="fa fa-square-o" data-layer="Inclination"></i> Inclination I</a></li>
+                  <li><a href="#" class="baseLayer" data-layer="F" data-layer-desc="Total Intensity F"><i class="fa fa-square-o" data-layer="F"></i> Total Intensity F</a></li>
+                  <li><a href="#" class="baseLayer" data-layer="H" data-layer-desc="Horizontal Intensity H"><i class="fa fa-square-o" data-layer="H"></i> Horizontal Intensity H</a></li>
+                  <li><a href="#" class="baseLayer" data-layer="X" data-layer-desc="North Component X"><i class="fa fa-square-o" data-layer="X"></i> North Component X</a></li>
+                  <li><a href="#" class="baseLayer" data-layer="Y" data-layer-desc="East Component Y"><i class="fa fa-square-o" data-layer="Y"></i> East Component Y</a></li>
+                  <li><a href="#" class="baseLayer" data-layer="Z" data-layer-desc="Down Component Z"><i class="fa fa-square-o" data-layer="Z"></i> Down Component Z</a></li>
               </ul>
           </div>
           <div class="btn-group btn-group-sm" data-toggle="buttons">
               <label class="btn btn-default"><input type="checkbox" id="overlay"><i class="fa fa-road"></i> Overlay</label>
           </div>
       </div>
-
+      
       <div class="input-group div-slider-bottom">
         <span id="time-show" class="input-group-addon">Date: 2010-1-1</span>
         <div class="form-control">
-          <input id="timeslider"  type="range" min="0" max="60" step="1" value="0"/>
+          <input id="timeslider"  type="range" min="0" max="59" step="1" value="0"/>
         </div>
       </div>
 <!--
@@ -134,23 +135,30 @@ var urls = [
 });
 */
 
-layer = new ol.layer.Tile({
-  source: new ol.source.WMTS({
-    url: "/cache/wmts",
-    layer: "Declination",
-    matrixSet: "WGS84",
-    format: 'image/jpeg',
-    projection: ol.proj.get('EPSG:4326'),
-    tileGrid: getWMTSTileGridForProjection(ol.proj.get('EPSG:4326'), 15, false),
-    extent: [-180, -90, 180, 90],
-    style: 'default',
-    dimensions: {
-      'ELEVATION': "0",
-      'TIME': "2010-1-1"
-    }
-  })
-});
+function createLayer(layerName) {
+  layer = new ol.layer.Tile({
+    source: new ol.source.WMTS({
+      url: "/cache/wmts",
+      layer: layerName,
+      matrixSet: "WGS84",
+      format: 'image/jpeg',
+      projection: ol.proj.get('EPSG:4326'),
+      tileGrid: getWMTSTileGridForProjection(ol.proj.get('EPSG:4326'), 15, false),
+      extent: [-180, -90, 180, 90],
+      style: 'default',
+      dimensions: {
+        'ELEVATION': getElevation($("#elevationslider").val()),
+        'TIME': getTime($("#timeslider").val())
+      },
+      attributions: [
+        new ol.Attribution({html: layerName + ' { <a href="http://www.ngdc.noaa.gov/geomag/WMM/">NOAA</a> }'})
+      ]
+    })
+  });
+  return layer;
+};
 
+layer = createLayer("Declination")
 
 overlay = new ol.layer.Tile({
   source: new ol.source.WMTS({
@@ -161,7 +169,10 @@ overlay = new ol.layer.Tile({
     projection: ol.proj.get('EPSG:4326'),
     tileGrid: getWMTSTileGridForProjection(ol.proj.get('EPSG:4326'), 15, false),
     extent: [-180, -90, 180, 90],
-    style: 'default'
+    style: 'default',
+    attributions: [
+      new ol.Attribution({html: 'Overlay { Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Rendering &copy; <a href="http://eox.at">EOX</a> and <a href="https://github.com/mapserver/basemaps">MapServer</a> }'})
+    ]
   }),
   visible: false
 });
@@ -177,7 +188,10 @@ var layers = [
       projection: ol.proj.get('EPSG:4326'),
       tileGrid: getWMTSTileGridForProjection(ol.proj.get('EPSG:4326'), 15, false),
       extent: [-180, -90, 180, 90],
-      style: 'default'
+      style: 'default',
+      attributions: [
+        new ol.Attribution({html: 'Terrain { Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors and <a href="#data">others</a>, Rendering &copy; <a href="http://eox.at">EOX</a> }'})
+      ]
     })
   }),
   layer,
@@ -185,7 +199,8 @@ var layers = [
 ];
 
 map = new ol.Map({
-  controls: ol.control.defaults(),
+  //controls: ol.control.defaults(),
+  controls: [new ol.control.Attribution()],
   layers: layers,
   target: 'map',
   view: new ol.View({
@@ -198,26 +213,11 @@ map = new ol.Map({
 
 $('.baseLayer').on('click.baselayer', function(e) {
   var layerName = $(e.target).data('layer');
+  var layerDesc = $(e.target).data('layer-desc') || $(e.target).parent().data('layer-desc');
   map.removeLayer(layer);
-  layer = new ol.layer.Tile({
-    source: new ol.source.WMTS({
-      url: "/cache/wmts",
-      layer: layerName,
-      matrixSet: "WGS84",
-      format: 'image/png',
-      projection: ol.proj.get('EPSG:4326'),
-      tileGrid: getWMTSTileGridForProjection(ol.proj.get('EPSG:4326'), 15, false),
-      extent: [-180, -90, 180, 90],
-      style: 'default',
-      dimensions: {
-        'ELEVATION': getElevation($("#elevationslider").val()),
-        'TIME': getTime($("#timeslider").val())
-      }
-    })
-  });
-
+  layer = createLayer(layerName);
   map.getLayers().insertAt(1, layer);
-  $('#layerSwitcher').html("<i class='fa fa-globe'></i> " + layerName + "  <i class='fa fa-caret-down'></i>" );
+  $('#layerSwitcher').html("<i class='fa fa-globe'></i> " + layerDesc + "  <i class='fa fa-caret-down'></i>" );
   $('#layerSwitcher + ul li').each(function(i) {
     link = $($(this)[0].children[0]);
     link[0].children[0].className = (link.data("layer") == layerName) ? "fa fa-check-square-o" : "fa fa-square-o"
