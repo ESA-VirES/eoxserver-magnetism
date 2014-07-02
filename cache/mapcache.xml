@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapcache>
+  <default_format>mixed</default_format>
+  <format name="mypng" type="PNG">
+    <compression>fast</compression>
+  </format>
+  <format name="myjpeg" type="JPEG">
+    <quality>85</quality>
+    <photometric>ycbcr</photometric>
+  </format>
+  <format name="mixed" type="MIXED">
+    <transparent>mypng</transparent>
+    <opaque>myjpeg</opaque>
+  </format>
+
+  <service type="wms" enabled="true">
+    <full_wms>assemble</full_wms>
+    <resample_mode>bilinear</resample_mode>
+    <format>mixed</format>
+    <maxsize>4096</maxsize>
+    <forwarding_rule name="wms13getcap">
+      <param name="SERVICE" type="values">WMS</param>
+      <param name="REQUEST" type="values">GetCapabilities</param>
+      <param name="VERSION" type="values">1.3.0</param>
+      <http>
+        <url>http://localhost/browse/ows</url>
+      </http>
+    </forwarding_rule>
+  </service>
+  <service type="wmts" enabled="true"/>
+  <service type="demo" enabled="true"/>
+
+  <errors>empty_img</errors>
+  <lock_dir>/tmp</lock_dir>
+
+  <source name="wms_Declination" type="wms">
+    <getmap>
+      <params>
+        <FORMAT>image/png</FORMAT>
+        <LAYERS>Declination</LAYERS>
+        <VERSION>1.3.0</VERSION>
+        <CRS>EPSG:4326</CRS>
+      </params>
+    </getmap>
+    <http>
+      <url>http://localhost:81/wmm/ows</url>
+    </http>
+  </source>
+
+  <source name="wms_Inclination" type="wms">
+    <getmap>
+      <params>
+        <FORMAT>image/png</FORMAT>
+        <LAYERS>Inclination</LAYERS>
+        <VERSION>1.3.0</VERSION>
+        <CRS>EPSG:4326</CRS>
+      </params>
+    </getmap>
+    <http>
+      <url>http://localhost:81/wmm/ows</url>
+    </http>
+  </source>
+
+  <source name="wms_F" type="wms">
+    <getmap>
+      <params>
+        <FORMAT>image/png</FORMAT>
+        <LAYERS>F</LAYERS>
+        <VERSION>1.3.0</VERSION>
+        <CRS>EPSG:4326</CRS>
+      </params>
+    </getmap>
+    <http>
+      <url>http://localhost:81/wmm/ows</url>
+    </http>
+  </source>
+
+  <source name="wms_H" type="wms">
+    <getmap>
+      <params>
+        <FORMAT>image/png</FORMAT>
+        <LAYERS>H</LAYERS>
+        <VERSION>1.3.0</VERSION>
+        <CRS>EPSG:4326</CRS>
+      </params>
+    </getmap>
+    <http>
+      <url>http://localhost:81/wmm/ows</url>
+    </http>
+  </source>
+
+  <source name="wms_X" type="wms">
+    <getmap>
+      <params>
+        <FORMAT>image/png</FORMAT>
+        <LAYERS>X</LAYERS>
+        <VERSION>1.3.0</VERSION>
+        <CRS>EPSG:4326</CRS>
+      </params>
+    </getmap>
+    <http>
+      <url>http://localhost:81/wmm/ows</url>
+    </http>
+  </source>
+
+  <source name="wms_Y" type="wms">
+    <getmap>
+      <params>
+        <FORMAT>image/png</FORMAT>
+        <LAYERS>Y</LAYERS>
+        <VERSION>1.3.0</VERSION>
+        <CRS>EPSG:4326</CRS>
+      </params>
+    </getmap>
+    <http>
+      <url>http://localhost:81/wmm/ows</url>
+    </http>
+  </source>
+
+  <source name="wms_Z" type="wms">
+    <getmap>
+      <params>
+        <FORMAT>image/png</FORMAT>
+        <LAYERS>Z</LAYERS>
+        <VERSION>1.3.0</VERSION>
+        <CRS>EPSG:4326</CRS>
+      </params>
+    </getmap>
+    <http>
+      <url>http://localhost:81/wmm/ows</url>
+    </http>
+  </source>
+
+  <cache name="sqlite" type="sqlite3">
+    <dbfile>/var/www/mapcache/tileset.sqlite</dbfile>
+  </cache>
+
+  <tileset name="Declination">
+    <source>wms_Declination</source>
+    <cache>sqlite</cache>
+    <grid>WGS84</grid>
+    <format>PNG</format>
+    <metatile>1 1</metatile>
+    <metabuffer>5</metabuffer>
+    <expires>604800</expires>
+    <dimensions>
+      <dimension name="elevation" type="values" default="0">-1,0,100,200,300,400,500,600,700,800,850</dimension>
+      <dimension name="time" type="values" default="2014-1-1">2010-1-1,2010-2-1,2010-3-1,2010-4-1,2010-5-1,2010-6-1,2010-7-1,2010-8-1,2010-9-1,2010-10-1,2010-11-1,2010-12-1,2011-1-1,2011-2-1,2011-3-1,2011-4-1,2011-5-1,2011-6-1,2011-7-1,2011-8-1,2011-9-1,2011-10-1,2011-11-1,2011-12-1,2012-1-1,2012-2-1,2012-3-1,2012-4-1,2012-5-1,2012-6-1,2012-7-1,2012-8-1,2012-9-1,2012-10-1,2012-11-1,2012-12-1,2013-1-1,2013-2-1,2013-3-1,2013-4-1,2013-5-1,2013-6-1,2013-7-1,2013-8-1,2013-9-1,2013-10-1,2013-11-1,2013-12-1,2014-1-1,2014-2-1,2014-3-1,2014-4-1,2014-5-1,2014-6-1,2014-7-1,2014-8-1,2014-9-1,2014-10-1,2014-11-1,2014-12-1</dimension>
+    </dimensions>
+  </tileset>
+  
+  <tileset name="Inclination">
+    <source>wms_Inclination</source>
+    <cache>sqlite</cache>
+    <grid>WGS84</grid>
+    <format>PNG</format>
+    <metatile>1 1</metatile>
+    <metabuffer>5</metabuffer>
+    <expires>604800</expires>
+    <dimensions>
+      <dimension name="elevation" type="values" default="0">-1,0,100,200,300,400,500,600,700,800,850</dimension>
+      <dimension name="time" type="values" default="2014-1-1">2010-1-1,2010-2-1,2010-3-1,2010-4-1,2010-5-1,2010-6-1,2010-7-1,2010-8-1,2010-9-1,2010-10-1,2010-11-1,2010-12-1,2011-1-1,2011-2-1,2011-3-1,2011-4-1,2011-5-1,2011-6-1,2011-7-1,2011-8-1,2011-9-1,2011-10-1,2011-11-1,2011-12-1,2012-1-1,2012-2-1,2012-3-1,2012-4-1,2012-5-1,2012-6-1,2012-7-1,2012-8-1,2012-9-1,2012-10-1,2012-11-1,2012-12-1,2013-1-1,2013-2-1,2013-3-1,2013-4-1,2013-5-1,2013-6-1,2013-7-1,2013-8-1,2013-9-1,2013-10-1,2013-11-1,2013-12-1,2014-1-1,2014-2-1,2014-3-1,2014-4-1,2014-5-1,2014-6-1,2014-7-1,2014-8-1,2014-9-1,2014-10-1,2014-11-1,2014-12-1</dimension>
+    </dimensions>
+  </tileset>
+
+  <tileset name="F">
+    <source>wms_F</source>
+    <cache>sqlite</cache>
+    <grid>WGS84</grid>
+    <format>PNG</format>
+    <metatile>1 1</metatile>
+    <metabuffer>5</metabuffer>
+    <expires>604800</expires>
+    <dimensions>
+      <dimension name="elevation" type="values" default="0">-1,0,100,200,300,400,500,600,700,800,850</dimension>
+      <dimension name="time" type="values" default="2014-1-1">2010-1-1,2010-2-1,2010-3-1,2010-4-1,2010-5-1,2010-6-1,2010-7-1,2010-8-1,2010-9-1,2010-10-1,2010-11-1,2010-12-1,2011-1-1,2011-2-1,2011-3-1,2011-4-1,2011-5-1,2011-6-1,2011-7-1,2011-8-1,2011-9-1,2011-10-1,2011-11-1,2011-12-1,2012-1-1,2012-2-1,2012-3-1,2012-4-1,2012-5-1,2012-6-1,2012-7-1,2012-8-1,2012-9-1,2012-10-1,2012-11-1,2012-12-1,2013-1-1,2013-2-1,2013-3-1,2013-4-1,2013-5-1,2013-6-1,2013-7-1,2013-8-1,2013-9-1,2013-10-1,2013-11-1,2013-12-1,2014-1-1,2014-2-1,2014-3-1,2014-4-1,2014-5-1,2014-6-1,2014-7-1,2014-8-1,2014-9-1,2014-10-1,2014-11-1,2014-12-1</dimension>
+    </dimensions>
+  </tileset>
+
+  <tileset name="H">
+    <source>wms_H</source>
+    <cache>sqlite</cache>
+    <grid>WGS84</grid>
+    <format>PNG</format>
+    <metatile>1 1</metatile>
+    <metabuffer>5</metabuffer>
+    <expires>604800</expires>
+    <dimensions>
+      <dimension name="elevation" type="values" default="0">-1,0,100,200,300,400,500,600,700,800,850</dimension>
+      <dimension name="time" type="values" default="2014-1-1">2010-1-1,2010-2-1,2010-3-1,2010-4-1,2010-5-1,2010-6-1,2010-7-1,2010-8-1,2010-9-1,2010-10-1,2010-11-1,2010-12-1,2011-1-1,2011-2-1,2011-3-1,2011-4-1,2011-5-1,2011-6-1,2011-7-1,2011-8-1,2011-9-1,2011-10-1,2011-11-1,2011-12-1,2012-1-1,2012-2-1,2012-3-1,2012-4-1,2012-5-1,2012-6-1,2012-7-1,2012-8-1,2012-9-1,2012-10-1,2012-11-1,2012-12-1,2013-1-1,2013-2-1,2013-3-1,2013-4-1,2013-5-1,2013-6-1,2013-7-1,2013-8-1,2013-9-1,2013-10-1,2013-11-1,2013-12-1,2014-1-1,2014-2-1,2014-3-1,2014-4-1,2014-5-1,2014-6-1,2014-7-1,2014-8-1,2014-9-1,2014-10-1,2014-11-1,2014-12-1</dimension>
+    </dimensions>
+  </tileset>
+  
+  <tileset name="X">
+    <source>wms_X</source>
+    <cache>sqlite</cache>
+    <grid>WGS84</grid>
+    <format>PNG</format>
+    <metatile>1 1</metatile>
+    <metabuffer>5</metabuffer>
+    <expires>604800</expires>
+    <dimensions>
+      <dimension name="elevation" type="values" default="0">-1,0,100,200,300,400,500,600,700,800,850</dimension>
+      <dimension name="time" type="values" default="2014-1-1">2010-1-1,2010-2-1,2010-3-1,2010-4-1,2010-5-1,2010-6-1,2010-7-1,2010-8-1,2010-9-1,2010-10-1,2010-11-1,2010-12-1,2011-1-1,2011-2-1,2011-3-1,2011-4-1,2011-5-1,2011-6-1,2011-7-1,2011-8-1,2011-9-1,2011-10-1,2011-11-1,2011-12-1,2012-1-1,2012-2-1,2012-3-1,2012-4-1,2012-5-1,2012-6-1,2012-7-1,2012-8-1,2012-9-1,2012-10-1,2012-11-1,2012-12-1,2013-1-1,2013-2-1,2013-3-1,2013-4-1,2013-5-1,2013-6-1,2013-7-1,2013-8-1,2013-9-1,2013-10-1,2013-11-1,2013-12-1,2014-1-1,2014-2-1,2014-3-1,2014-4-1,2014-5-1,2014-6-1,2014-7-1,2014-8-1,2014-9-1,2014-10-1,2014-11-1,2014-12-1</dimension>
+    </dimensions>
+  </tileset>
+
+   
+  <tileset name="Y">
+    <source>wms_Y</source>
+    <cache>sqlite</cache>
+    <grid>WGS84</grid>
+    <format>PNG</format>
+    <metatile>1 1</metatile>
+    <metabuffer>5</metabuffer>
+    <expires>604800</expires>
+    <dimensions>
+      <dimension name="elevation" type="values" default="0">-1,0,100,200,300,400,500,600,700,800,850</dimension>
+      <dimension name="time" type="values" default="2014-1-1">2010-1-1,2010-2-1,2010-3-1,2010-4-1,2010-5-1,2010-6-1,2010-7-1,2010-8-1,2010-9-1,2010-10-1,2010-11-1,2010-12-1,2011-1-1,2011-2-1,2011-3-1,2011-4-1,2011-5-1,2011-6-1,2011-7-1,2011-8-1,2011-9-1,2011-10-1,2011-11-1,2011-12-1,2012-1-1,2012-2-1,2012-3-1,2012-4-1,2012-5-1,2012-6-1,2012-7-1,2012-8-1,2012-9-1,2012-10-1,2012-11-1,2012-12-1,2013-1-1,2013-2-1,2013-3-1,2013-4-1,2013-5-1,2013-6-1,2013-7-1,2013-8-1,2013-9-1,2013-10-1,2013-11-1,2013-12-1,2014-1-1,2014-2-1,2014-3-1,2014-4-1,2014-5-1,2014-6-1,2014-7-1,2014-8-1,2014-9-1,2014-10-1,2014-11-1,2014-12-1</dimension>
+    </dimensions>
+  </tileset>
+
+
+  <tileset name="Z">
+    <source>wms_Z</source>
+    <cache>sqlite</cache>
+    <grid>WGS84</grid>
+    <format>PNG</format>
+    <metatile>1 1</metatile>
+    <metabuffer>5</metabuffer>
+    <expires>604800</expires>
+    <dimensions>
+      <dimension name="elevation" type="values" default="0">-1,0,100,200,300,400,500,600,700,800,850</dimension>
+      <dimension name="time" type="values" default="2014-1-1">2010-1-1,2010-2-1,2010-3-1,2010-4-1,2010-5-1,2010-6-1,2010-7-1,2010-8-1,2010-9-1,2010-10-1,2010-11-1,2010-12-1,2011-1-1,2011-2-1,2011-3-1,2011-4-1,2011-5-1,2011-6-1,2011-7-1,2011-8-1,2011-9-1,2011-10-1,2011-11-1,2011-12-1,2012-1-1,2012-2-1,2012-3-1,2012-4-1,2012-5-1,2012-6-1,2012-7-1,2012-8-1,2012-9-1,2012-10-1,2012-11-1,2012-12-1,2013-1-1,2013-2-1,2013-3-1,2013-4-1,2013-5-1,2013-6-1,2013-7-1,2013-8-1,2013-9-1,2013-10-1,2013-11-1,2013-12-1,2014-1-1,2014-2-1,2014-3-1,2014-4-1,2014-5-1,2014-6-1,2014-7-1,2014-8-1,2014-9-1,2014-10-1,2014-11-1,2014-12-1</dimension>
+    </dimensions>
+  </tileset>
+
+</mapcache>
