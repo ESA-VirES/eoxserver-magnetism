@@ -138,7 +138,7 @@
   <tileset name="Declination">
     <source>wms_Declination</source>
     <cache>sqlite</cache>
-    <grid>WGS84</grid>
+    <grid maxzoom="6" max-cached-zoom="4" out-of-zoom-strategy="reassemble">WGS84</grid>
     <format>PNG</format>
     <metatile>1 1</metatile>
     <metabuffer>5</metabuffer>
@@ -152,7 +152,7 @@
   <tileset name="Inclination">
     <source>wms_Inclination</source>
     <cache>sqlite</cache>
-    <grid>WGS84</grid>
+    <grid maxzoom="6" max-cached-zoom="4" out-of-zoom-strategy="reassemble">WGS84</grid>
     <format>PNG</format>
     <metatile>1 1</metatile>
     <metabuffer>5</metabuffer>
@@ -166,7 +166,7 @@
   <tileset name="F">
     <source>wms_F</source>
     <cache>sqlite</cache>
-    <grid>WGS84</grid>
+    <grid maxzoom="6" max-cached-zoom="4" out-of-zoom-strategy="reassemble">WGS84</grid>
     <format>PNG</format>
     <metatile>1 1</metatile>
     <metabuffer>5</metabuffer>
@@ -180,7 +180,7 @@
   <tileset name="H">
     <source>wms_H</source>
     <cache>sqlite</cache>
-    <grid>WGS84</grid>
+    <grid maxzoom="6" max-cached-zoom="4" out-of-zoom-strategy="reassemble">WGS84</grid>
     <format>PNG</format>
     <metatile>1 1</metatile>
     <metabuffer>5</metabuffer>
@@ -194,7 +194,7 @@
   <tileset name="X">
     <source>wms_X</source>
     <cache>sqlite</cache>
-    <grid>WGS84</grid>
+    <grid maxzoom="6" max-cached-zoom="4" out-of-zoom-strategy="reassemble">WGS84</grid>
     <format>PNG</format>
     <metatile>1 1</metatile>
     <metabuffer>5</metabuffer>
@@ -209,7 +209,7 @@
   <tileset name="Y">
     <source>wms_Y</source>
     <cache>sqlite</cache>
-    <grid>WGS84</grid>
+    <grid maxzoom="6" max-cached-zoom="4" out-of-zoom-strategy="reassemble">WGS84</grid>
     <format>PNG</format>
     <metatile>1 1</metatile>
     <metabuffer>5</metabuffer>
@@ -224,7 +224,7 @@
   <tileset name="Z">
     <source>wms_Z</source>
     <cache>sqlite</cache>
-    <grid>WGS84</grid>
+    <grid maxzoom="6" max-cached-zoom="4" out-of-zoom-strategy="reassemble">WGS84</grid>
     <format>PNG</format>
     <metatile>1 1</metatile>
     <metabuffer>5</metabuffer>
